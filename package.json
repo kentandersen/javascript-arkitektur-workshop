@@ -1,0 +1,44 @@
+{
+  "name": "javascript-arkitektur",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build-css": "node scripts/build-css.js",
+    "build-js": "node scripts/build-js.js",
+    "watch": "npm-watch",
+    "start": "node server.js",
+    "oppgave1": "mocha -b oving/postman.spec.js"
+  },
+  "watch": {
+    "build-css": "src/**/*.less",
+    "build-js": "src/**/*.js"
+  },
+  "author": "Kent Andersen <kent.andersen@bekk.no>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kentandersen/appstart-workshop"
+  },
+  "dependencies": {
+    "chai": "^4.0.2",
+    "delegate": "^3.1.3",
+    "unfetch": "^2.1.0"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.1.0",
+    "chai": "^4.0.2",
+    "connect": "^3.6.0",
+    "cssnano": "^3.10.0",
+    "less": "^2.7.2",
+    "mocha": "^3.4.2",
+    "npm-watch": "^0.1.9",
+    "proxy-middleware": "^0.15.0",
+    "public-ip": "^2.3.3",
+    "serve-static": "^1.12.0",
+    "sinon": "^2.3.2",
+    "sinon-chai": "^2.10.0",
+    "uglify-js": "^3.0.14"
+  }
+}

@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>JavaScript arkitektur</title>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/bekk/remark/master/dist/bekk.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body class="bekk-black">
+    <textarea id="source">
+
+class: front-page
+  # JavaScript arkitektur
+  ## Frontendprogrammet
+
+  <span class="today-date"></span>
+---
+class:split
+# Alt starter med en fil
+
+
+```
+import 'unfetch';
+import App from './app';
+
+function render() {
+  app.mount(el);
+}
+
+document
+  .addEventListener(
+    'DOMContentLoaded',
+    () => {
+      const app = new App():
+      app.mount(el);
+    }
+  );
+
+```
+main.js
+
+![bilde](resources/tree.jpg)
+
+---
+# skjelettet til en fil
+
+```
+// alle importer som trengs i denne filen
+import Component from './base/component';
+import List from './list';
+
+// "here be magic"
+...
+
+// send magien videre
+export default App;
+```
+
+---
+class: cols two
+# Mappestruktur
+
+.col[
+
+```text
+src/
+|-- less/
+|   |-- module1.less
+|   |-- module2.less
+|
+|-- js/
+|   |-- module1.js
+|   |-- module2.js
+|
+|-- test/
+|   |-- module1.spec.js
+|   |-- module2.spec.js
+|
+|-- text/
+|   |-- module1.text.js
+|   |-- module2.text.js
+|
+|-- main.js
+|-- main.less
+```
+]
+
+--
+
+.col[
+
+```text
+src/
+|-- module1/
+|   |-- module1.less
+|   |-- module1.js
+|   |-- module1.spec.js
+|   |-- module1.text.js
+|
+|-- module2/
+|   |-- module2.less
+|   |-- module2.js
+|   |-- module2.spec.js
+|   |-- module2.text.js
+|
+|-- main.js
+|-- main.less
+```
+]
+
+
+
+
+---
+class: middle center
+
+# Class
+## ...en recap
+
+---
+
+# Class
+
+```
+const Postmann = function(navn) {
+  this.navn = navn;
+}
+
+Postmann.prototype.siHei = function() {
+  console.log(`hei ${this.navn}!`);
+};
+```
+
+--
+
+```
+const pat = new Postmann('Pat');
+pat.siHei(); // hei Pat!
+```
+
+---
+
+# Class
+
+```
+class Postmann {
+  constructor(navn) {
+    this.navn = navn;
+  }
+
+  siHei() {
+    console.log(`hei ${this.navn}!`);
+  }
+}
+```
+
+--
+
+```
+const pat = new Postmann('Pat');
+pat.siHei(); // hei Pat!
+```
+???
+Ikke ordentlig klasser, bare syntax-sukker oppå prototype
+
+???
+  fortsatt samme syntax for å instansiere
+
+---
+
+# Class
+
+```
+class Postmann {
+  constructor(navn) {}
+
+  get age() {
+    return this.age;
+  }
+
+  set age(age) {
+    this.age = age;
+  }
+}
+```
+
+???
+  getter og setter metode for properties
+
+
+---
+
+```
+// Shared empty constructor function to aid in prototype-chain creation.
+var ctor = function() {};
+
+// Set up inheritance for the model and view.
+View.extend = Model.extend = function(properties) {
+  var parent = this;
+
+  // Create child constructor
+  // … which only job is to call the parent construtor with all the arguments
+  var child = function() { parent.apply(this, arguments); };
+
+  // Set the prototype chain to inherit from `parent`
+  ctor.prototype = parent.prototype;
+  child.prototype = new ctor();
+
+  // Add prototype properties, i.e. instance properties
+  $.extend(child.prototype, properties);
+
+  // The child must also be able to create new subclasses
+  child.extend = parent.extend;
+
+  return child;
+};
+```
+
+.source[https://github.com/kjbekkelund/simple/blob/master/simple.js#L417]
+
+---
+# Class
+
+```
+class Postmann {}
+class Katt extends Postmann {}
+```
+
+
+--
+
+```
+class Postmann {
+  constructor() {}
+
+  someFunction() {}
+}
+
+class Katt extends Postmann {
+  constructor() {
+    super();
+  }
+
+  someFunction() {
+    super.someFunction();
+  }
+}
+```
+
+???
+  super metoder
+
+---
+
+
+class: center middle
+# Modularisering
+
+
+---
+
+<div class="browser">
+  <div class="title">Composition vs. Inheritance: How to Choose? | ThoughtWorks</div>
+  <div class="url">https://www.thoughtworks.com/insights/blog/composition-vs-inheritance-how-choose</div>
+  <div class="content">
+    <img src="resources/composition-vs-inheritance.png" style="width:100%"/>
+  </div>
+</div>
+
+
+---
+
+class: cols two
+
+# composition vs. inheritance
+
+.col[
+## Inheritance
+
+```
+class Katt extends Postmann {
+  constructor() {
+    super();
+  }
+
+  someFunction() {
+    super.someFunction();
+  }
+}
+
+```
+]
+
+--
+
+.col[
+## Composition
+
+
+```
+class Katt {
+  constructor() {
+    this.postmann = postmann;
+  }
+
+  someFunction() {
+    this.postmann.someFunction();
+  }
+}
+
+```
+]
+
+---
+class: center middle
+
+![](resources/megaman-inheritance.png)
+
+---
+
+class: center middle
+
+![](resources/megaman-composition.png)
+
+---
+class: center middle
+
+![](resources/inheritance.svg)
+
+---
+# Oppgave 1
+
+Få testene til å kjøre
+```bash
+npm run oppgave1
+```
+
+
+
+---
+
+class: center middle
+# Takk for i dag!
+
+    </textarea>
+    <script src="https://cdn.rawgit.com/bekk/remark/master/vendor/remark.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create({
+        ratio: '16:9',
+        highlightLanguage: 'javascript',
+        highlightStyle: 'monokai',
+        navigation: {
+          scroll: false
+        }
+      });
+
+      var dateStr = new Date().toLocaleString('nb-NO', { year: 'numeric', month: 'long', day: 'numeric' });
+      document.querySelector('.today-date').textContent = dateStr;
+    </script>
+
+  </body>
+</html>
