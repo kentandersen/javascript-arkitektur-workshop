@@ -16,7 +16,7 @@ const source = join(__dirname, '../src/main.less');
 const target = join(__dirname, '../dist/main.css');
 
 readFile(source)
-  .then(file => render(file.toString()))
+  .then(file => render(file.toString(), {paths: ['./src']}))
   .then(({css}) => minifycss(css))
   .then(({css}) => writeFile(target, css))
   .catch(error => console.log(error));
