@@ -1,0 +1,58 @@
+
+.card {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 280px;
+
+  padding: 10px 0;
+  background-color: #f1f1f1;
+
+  color: #1b1b1b;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 16px;
+
+
+  .picture {
+    border-radius: 250px;
+    margin: 0 auto 20px auto;
+    width: 200px;
+    height: 200px;
+
+    background: #ebebeb;
+    border-radius: 9999px;
+    overflow: hidden;
+    position: relative;
+    -webkit-background-clip: padding-box;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .name,
+  .title,
+  .department {
+    display: block;
+    font-style: italic;
+  }
+
+  .name:after {
+    content: "";
+    display: block;
+    background: #fd5158;
+    width: 70px;
+    height: 2px;
+    margin: 8px auto;
+  }
+
+  .phone,
+  .email {
+    display: block;
+    text-transform: none;
+  }
+
+  .phone {
+    margin-top: 20px;
+  }
+}
