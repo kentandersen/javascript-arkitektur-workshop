@@ -1,4 +1,4 @@
-# AppStart workshop
+# JavaScript-arkitektur workshop
 ## Introduksjon:
  http://kentandersen.github.io/javascript-arkitektur-workshop/
 ## Oppgaver
