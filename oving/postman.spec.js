@@ -1,16 +1,10 @@
-require('babel-core/register');
-
-const chai = require('chai');
-const sinonChai = require('sinon-chai');
+require('../test/enviroment');
+const { expect } = require('chai');
 const sinon = require('sinon');
 const Postman = require('./postman').default;
 const SanePostman = require('./sanePostman').default;
 const ComposedPostman = require('./composedPostman').default;
 
-const { expect } = chai;
-
-
-chai.use(sinonChai)
 
 describe('A sane postman', () => {
 
