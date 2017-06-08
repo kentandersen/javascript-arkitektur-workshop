@@ -7,7 +7,8 @@
     "build-js": "node scripts/build-js.js",
     "watch": "npm-watch",
     "start": "node server.js",
-    "oppgave1": "mocha -b oving/postman.spec.js"
+    "oppgave1": "mocha -b oving/postman.spec.js",
+    "oppgave2": "mocha -b src/store/service.spec.js src/store/store.spec.js"
   },
   "watch": {
     "build-css": "src/**/*.less",
